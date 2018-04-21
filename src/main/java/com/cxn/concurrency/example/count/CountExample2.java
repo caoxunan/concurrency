@@ -1,25 +1,26 @@
-package com.cxn.concurrency;
+package com.cxn.concurrency.example.count;
 
-import com.cxn.concurrency.annotations.NotThreadSafe;
+import com.cxn.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @program: concurrency
+ * @program: CountExample2
  * @description: ${description}
  * @author: cxn
  * @create: 2018-04-17 09:11
  * @Version v1.0
  */
 @Slf4j
-@NotThreadSafe
-public class ConcurrencyTest {
+@ThreadSafe
+public class CountExample2 {
 
-    private static int count;
+    private static AtomicInteger count = new AtomicInteger(0);
     private static int threadTotal = 200;
     private static int clientTotal = 5000;
 
@@ -54,7 +55,7 @@ public class ConcurrencyTest {
     }
 
     public static void add1(){
-        count++;
+        count.getAndIncrement();
     }
 
 }

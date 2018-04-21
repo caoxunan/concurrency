@@ -1,12 +1,13 @@
-package com.cxn.concurrency;
+package com.cxn.concurrency.example.atomic;
 
-import com.cxn.concurrency.annotations.NotThreadSafe;
+import com.cxn.concurrency.annotations.ThreadSafe;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.LongAdder;
 
 /**
  * @program: concurrency
@@ -16,16 +17,15 @@ import java.util.concurrent.Semaphore;
  * @Version v1.0
  */
 @Slf4j
-@NotThreadSafe
-public class ConcurrencyTest {
+@ThreadSafe
+public class AtomicExample3 {
 
-    private static int count;
+    private static LongAdder count = new LongAdder();
     private static int threadTotal = 200;
     private static int clientTotal = 5000;
 
     public static void main(String[] args) throws Exception {
         // create ThreadPool
-        log.info("coming into the method~");
         ExecutorService executorService = Executors.newCachedThreadPool();
 
         final Semaphore semaphore = new Semaphore(threadTotal);
@@ -35,11 +35,10 @@ public class ConcurrencyTest {
             executorService.execute(()->{
                 try {
                     semaphore.acquire();
-                    add1();
+                    add3();
                     semaphore.release();
                 } catch (InterruptedException e) {
                     log.error("exception",e);
-
                 }
                 countDownLatch.countDown();
 
@@ -53,8 +52,9 @@ public class ConcurrencyTest {
 
     }
 
-    public static void add1(){
-        count++;
+    public static void add3(){
+        // 先获取值然后加一 or 先加一在获取值
+        count.increment();
     }
 
 }

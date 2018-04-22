@@ -12,6 +12,7 @@ import java.util.concurrent.*;
  * @Version v1.0
  */
 @Slf4j
+// 有问题，当cyclicBarrier抛出异常后，线程等待的效果就没有了
 public class CyclicBarrierExample2 {
 
     // 定义需要同步等待的线程的数量

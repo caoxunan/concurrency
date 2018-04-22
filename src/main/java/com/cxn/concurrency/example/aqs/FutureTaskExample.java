@@ -2,8 +2,7 @@ package com.cxn.concurrency.example.aqs;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
 /**
  * @program: concurrency
@@ -28,8 +27,14 @@ public class FutureTaskExample {
                 return "Done";
             }
         });
+        // Thread 调用
+        // new Thread(futureTask).start();
 
-        new Thread(futureTask).start();
+        // 线程池调用
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.submit(futureTask);
+        executorService.shutdown();
+
         log.info("do something in main~");
         Thread.sleep(1000);
         String result = futureTask.get();

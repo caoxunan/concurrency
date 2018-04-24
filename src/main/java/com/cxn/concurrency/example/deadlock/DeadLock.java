@@ -3,6 +3,8 @@ package com.cxn.concurrency.example.deadlock;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
@@ -57,6 +59,10 @@ public class DeadLock implements  Runnable{
 
 
     public static void main(String[] args) {
+        Map map = new HashMap();
+        map.put(1,1);
+        map.put(null,null);
+        System.out.println(map);
 
         ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("my-first-ThreadPoolExecutor").build();
 

@@ -33,6 +33,7 @@ public class FutureTaskExample {
         // 线程池调用
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.submit(futureTask);
+        // executorService.execute(futureTask);
         executorService.shutdown();
 
         log.info("do something in main~");
